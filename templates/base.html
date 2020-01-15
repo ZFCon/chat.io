@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Chat x Channels Rapidly</title>
+    {% include 'css.html' %}
+</head>
+<body>
+<p id="ass"></p>
+<div class='container'>
+    <div class='row border-bottom my-3 py-3'>
+        <div class='col'>
+            <h1 class='p-0 m-0'>Chat x Channels Rapidly</h1>
+        </div>
+    </div>
+{% block content %}
+{% endblock %}
+</div>
+
+
+{% include 'js.html' %}
+{% block script %}
+{% endblock %}
+
+<script>
+var backpoint = '';
+var wsStart = 'ws://'+window.location.host+window.location.pathname
+var socket = new WebSocket(wsStart);
+var formdata = $('#message');
+var msg = $('#msg')
+
+socket.onmessage = function(e){
+    console.log('message', e)
+    console.log(e.data)
+    msg.append('<li>'+ e.data +'</li>')
+}
+socket.onopen = function(e){
+    console.log('connected', e)
+    formdata.submit(function(event){
+        event.preventDefault()
+        socket.send($('#input').val())
+        formdata[0].reset()
+    })
+}
+socket.onclose = function(e){
+    console.log('disconnected', e)
+}
+socket.onerror = function(e){
+    console.log('error', e)
+}
+
+</script>
+
+</body>
+</html>

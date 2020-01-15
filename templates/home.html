@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul id="msg">
+
+</ul>
+
+<form method="POST" id="message">
+    {% csrf_token %}
+    <input type="text" id="input">
+    <button type="submit">message</button>
+</form>
+{% endblock %}
