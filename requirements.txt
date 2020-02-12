@@ -1,2 +1,2 @@
-Django==2.2.7
+Django==2.2.10
 django-channels==0.7.0
